@@ -7,11 +7,13 @@ db = client['Hack']
 collection = db['kommersant']
 
 
-def add_post(post, body):
+def add_post(post, data):
     collection.insert_one({'Title': post['Title'],
-                           'Body': body,
+                           'Body': data['body'],
                            'Time': int(post['DateBegin']),
-                           'DocsID': post['DocsID']})
+                           'DocsID': post['DocsID'],
+                           'Comments': data['comments'],
+                           'Views': data['views']})
 
 
 def get_posts():

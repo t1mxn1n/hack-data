@@ -28,6 +28,10 @@ def tokenize_sentence(sentence):
     return tokens
 
 
+def tokenize(x):
+    return tokenize_sentence(x, rm_stop_words=True)
+
+
 def modeling():
     train_df, test_df = train_test_split(
         main_dataset, test_size=500

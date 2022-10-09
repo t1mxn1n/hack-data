@@ -6,3 +6,5 @@ tqdm
 nltk
 pandas
 sklearn
+selenium
+flask

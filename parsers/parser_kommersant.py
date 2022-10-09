@@ -1,10 +1,7 @@
-import time
-
 import requests
 from datetime import datetime
 from loguru import logger
-from multiprocessing import Process, Pool
-from threading import Thread
+from multiprocessing import Pool
 from bs4 import BeautifulSoup
 
 from tqdm import tqdm
@@ -14,7 +11,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
-from database import add_post, drop_db
+from database import add_post
 
 caps = DesiredCapabilities().CHROME
 caps["pageLoadStrategy"] = "eager"
@@ -128,13 +125,10 @@ def main(type_):
     time_start = datetime.now()
     posts = get_pages(type_)
     part = len(posts) // 3
-    # posts = [posts[0:part], posts[part: part * 2], posts[part * 2: part * 3], posts[part * 3:]]
+    # Парсинг работает в 3-х процессах
     posts = [posts[0:part], posts[part: part * 2], posts[part * 2:]]
     p = Pool(processes=3)
     p.map(get_data_from_post_by_webdriver, posts)
-    # for post in posts:
-    #     get_data_from_post_by_webdriver(post)
-
     time_end = datetime.now()
     logger.info(f'Данные собраны за {time_end - time_start}')
 
@@ -143,7 +137,3 @@ if __name__ == '__main__':
     # 'business' 'finance'
     type_data = 'finance'
     main(types_data[type_data])
-    # u = 'https://tns-counter.ru/e/ec01&cid=kommersant_ru&typ=1&tms=kommersant_ru&idc=155&uid=r4yoydl35z9g2c2i&hid=&idlc=5549514&ver=0&type=4'
-    # r = requests.get(url=u, headers=headers)
-    # print(r.text)
-

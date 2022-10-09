@@ -136,7 +136,7 @@ def get_average_stats():
 
 
 if __name__ == '__main__':
-    # main()
+    main()
     get_average_stats()
 
 # 0.5260641189098968

@@ -1,6 +1,4 @@
 import json
-import time
-import re
 from datetime import datetime, timedelta
 from bs4 import BeautifulSoup
 import requests
@@ -8,9 +6,7 @@ from tqdm import tqdm
 from multiprocessing import Pool
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
-
 from loguru import logger
 
 from database import add_post_vc
@@ -46,7 +42,7 @@ def get_links():
         print(len(data))
         print(len(uniq))
         print(len(data) - len(uniq))
-        with open('../links_v3.txt', 'w') as file:
+        with open('links_v3.txt', 'w') as file:
             file.writelines(uniq)
     except Exception as e:
         logger.error(f'Error in data scraping: {e}')
@@ -74,7 +70,6 @@ def get_data(links):
             final_body = partial_content[0].split('<div class="content-info__item content-info__item--right">')
             body = BeautifulSoup(final_body[-1], 'html.parser')
             text = body.find_all(class_='l-island-a')
-            # print(data)
             res = ''
             for b in text:
                 res += b.text.strip().replace('\n', '')
@@ -95,7 +90,7 @@ def get_data(links):
 def main():
     time_start = datetime.now()
     links = []
-    with open('../links_v3.txt', 'r') as file:
+    with open('links_v3.txt', 'r') as file:
         while True:
             line = file.readline()
             if not line:
@@ -113,4 +108,5 @@ def main():
 
 
 if __name__ == '__main__':
+    get_links()
     main()

@@ -3,8 +3,6 @@ import re
 from tqdm import tqdm
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from loguru import logger
 import csv
@@ -27,8 +25,6 @@ def main():
             driver = webdriver.Chrome(options=options, desired_capabilities=caps)
             driver.get(url)
             time.sleep(1)
-            # WebDriverWait(driver, 7).until(EC.presence_of_element_located(
-            #    (By.CLASS_NAME, 'sharing')))
             topics = driver.find_elements(by=By.CLASS_NAME, value='ipsDataItem_main')[:-10]
             if first:
                 action = 'w'

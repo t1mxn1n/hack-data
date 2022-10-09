@@ -1,7 +1,7 @@
 from loguru import logger
 import pickle
 
-from train_dataset import tokenize, tokenize_sentence
+
 from database import *
 
 ROLES = {
@@ -118,21 +118,21 @@ def get_average_stats():
 
     kommersant_data = get_posts_kommersant(avg_comments_k, avg_er_k)
     list_k = []
-    for post in kommersant_data:
-        list_k.append(post)
+    for post_k in kommersant_data:
+        list_k.append(post_k)
 
     vc_data = get_posts_vcru(avg_comments_vc, avg_er_vc)
     list_vc = []
-    for post in vc_data:
-        list_vc.append(post)
+    for post_vc in vc_data:
+        list_vc.append(post_vc)
 
     for i in list_vc:
         if i not in list_k:
             list_k.append(i)
+
     newlist = sorted(list_k, key=lambda d: d['er'])
-    partial_list = newlist[:len(newlist) // 2]
-    result_list = sorted(partial_list, key=lambda d: d['Views'])
-    return result_list
+    add_sorted_data(newlist)
+    return newlist
 
 
 if __name__ == '__main__':

@@ -3,3 +3,6 @@ loguru
 beautifulsoup4
 pymongo
 tqdm
+nltk
+pandas
+sklearn

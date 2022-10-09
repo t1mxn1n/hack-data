@@ -22,6 +22,7 @@ python .\parsers\parser_vcru.py (сайт vc.ru раздел "Компании")
 # сбор данных происходит в 3-х процессах
 
 # парсинг форум-источников (есть уже готовый датасет: dataset/dataset.csv)
+# нет необходимости запускать эти скрипты, так как данные собранны
 python .\parsers\parser_accountant.py
 python .\parsers\parser_business_category.py
 

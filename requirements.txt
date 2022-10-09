@@ -2,3 +2,4 @@ requests
 loguru
 beautifulsoup4
 pymongo
+tqdm

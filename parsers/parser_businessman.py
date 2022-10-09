@@ -1,6 +1,5 @@
 from bs4 import BeautifulSoup
 import requests
-from pyppeteer import launch
 import asyncio
 
 

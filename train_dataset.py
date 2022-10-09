@@ -1,5 +1,6 @@
 import pickle
 import string
+
 import nltk
 nltk.download('punkt')
 import pandas as pd
@@ -31,7 +32,7 @@ def tokenize(x):
 
 def modeling():
 
-    main_csv = pd.read_csv('dataset.csv')
+    main_csv = pd.read_csv('dataset/dataset.csv')
     train_df, test_df = train_test_split(
         main_csv, test_size=500
     )

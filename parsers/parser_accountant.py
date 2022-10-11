@@ -2,7 +2,6 @@ import requests
 import csv
 from loguru import logger
 
-
 ROLES = {
     'businessman': 0,
     'accountant': 1,
@@ -19,10 +18,10 @@ FORUMS = {
 def accountant():
     news_list, page = list(), 0
     with open(
-        'role_accountant.csv',
-        'w',
-        encoding='utf-8',
-        newline=''
+            '../dataset/role_accountant.csv',
+            'w',
+            encoding='utf-8',
+            newline=''
     ) as csvfile:
         writer = csv.writer(csvfile, dialect='excel')
         writer.writerow(('discussion', 'role'))

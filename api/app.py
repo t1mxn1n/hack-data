@@ -1,45 +1,68 @@
-from flask import Flask
-from pymongo import MongoClient
-import json
+from flask import Flask, jsonify
 
+from database import get_sorted_data, get_sorted_data_by_source, get_sorted_data_by_source_with_role, get_trends, get_insights
 
-client = MongoClient('mongodb://localhost:27017/')
-db_testing = client['testing_tfm']
-collection_testing = db_testing['coinhall_tests']
 app = Flask(__name__)
-
-
-def find_data(address):
-    data = collection_testing.find_one(
-        {'address': address},
-        {'_id': 0,
-        'address': 1,
-        'timestamp': 1,
-        'market_cap_diff': 1,
-        'fdv_diff': 1,
-        'liquidity_diff': 1,
-        'volume_diff': 1,
-        'apr_diff': 1,
-        'price_diff': 1,
-        'price24h_diff': 1,
-        'coinhall': {'chain': 1}
-        }
-    )
-    return data
 
 
 @app.route("/role/0")
 def find_news_businessman():
-    address = 'terra1fd68ah02gr2y8ze7tm9te7m70zlmc7vjyyhs6xlhsdmqqcjud4dql4wpxr'
-    data = find_data(address)
-    return json.dumps(data)
+    data = get_sorted_data(0)
+    return jsonify(**data)
 
 
 @app.route("/role/1")
 def find_news_accountant():
-    address = 'terra1ygn5h8v8rm0v8y57j3mtu3mjr2ywu9utj6jch6e0ys2fc2pkyddqekwrew'
-    data = find_data(address)
-    return json.dumps(data)
+    data = get_sorted_data(1)
+    return jsonify(**data)
+
+
+@app.route("/source/vc")
+def find_news_vc():
+    data = get_sorted_data_by_source('vc')
+    return jsonify(**data)
+
+
+@app.route("/source/vc/0")
+def find_news_vc_0():
+    data = get_sorted_data_by_source_with_role('vc', 0)
+    return jsonify(**data)
+
+
+@app.route("/source/vc/1")
+def find_news_vc_1():
+    data = get_sorted_data_by_source_with_role('vc', 1)
+    return jsonify(**data)
+
+
+@app.route("/source/kommers")
+def find_news_kommers():
+    data = get_sorted_data_by_source('kommersant')
+    return jsonify(**data)
+
+
+@app.route("/source/kommers/0")
+def find_news_kommers_0():
+    data = get_sorted_data_by_source_with_role('kommersant', 0)
+    return jsonify(**data)
+
+
+@app.route("/source/kommers/1")
+def find_news_kommers_1():
+    data = get_sorted_data_by_source_with_role('kommersant', 1)
+    return jsonify(**data)
+
+
+@app.route("/trends")
+def find_trends():
+    data = get_trends()
+    return jsonify(**data)
+
+
+@app.route("/insights")
+def find_insights():
+    data = get_insights()
+    return jsonify(**data)
 
 
 if __name__ == "__main__":

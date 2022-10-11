@@ -2,3 +2,9 @@ requests
 loguru
 beautifulsoup4
 pymongo
+tqdm
+nltk
+pandas
+sklearn
+selenium
+flask
